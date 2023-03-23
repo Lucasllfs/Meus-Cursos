@@ -1,20 +1,64 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ViewAllCourses from './src/pages/ViewAllCourses/ViewAllCourses';
+import Home from './src/pages/Home'
+import Add from './src/pages/Add'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createNativeStackNavigator();
+
+export default class App extends Component {
+
+  render() {
+
+    return (
+      <NavigationContainer>
+        <Stack.Navigator  initialRouteName="Home">
+
+          <Stack.Screen name="Home" component={Home}
+            options={{
+              title: 'Home',
+              headerStyle: {
+                backgroundColor: '#181818',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: '900',
+                fontSize: 30
+              }
+            }}
+          />
+
+           <Stack.Screen name="Add" component={Add}
+            options={{
+              title: 'Add',
+              headerStyle: {
+                backgroundColor: '#181818',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              }
+            }}
+          /> 
+
+          <Stack.Screen name="Next" component={ViewAllCourses}
+            options={{
+              title: 'next',
+              headerStyle: {
+                backgroundColor: '#181818',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              }
+            }}
+          /> 
+
+        </Stack.Navigator>
+      </NavigationContainer>
+      
+    )
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
