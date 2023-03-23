@@ -2,6 +2,7 @@ import React, { useEffect} from 'react';
 import { SafeAreaView } from 'react-native';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { DatabaseConnection } from '../database/database-connection';
+import ViewAllCourses from '../ViewAllCourses/ViewAllCourses';
 const db = DatabaseConnection.getConnection();
 
 const Home = ({ navigation }) =>{
@@ -25,9 +26,10 @@ const Home = ({ navigation }) =>{
     });
   }, []);
 
-  const GoToAdd = () => {
-    navigation.navigate('Add')
-  }
+
+  
+
+  
 
   const GoToNext = () => {
     navigation.navigate('Next')
@@ -45,14 +47,10 @@ const Home = ({ navigation }) =>{
         </View>
 
       </TouchableOpacity>
+
       
-      <TouchableOpacity onPress={() => GoToAdd()}>
+      
 
-        <View style = {styles.add}>
-          <Text style = { styles.addText}>+</Text>
-        </View>
-
-      </TouchableOpacity>
 
     </View>
     </SafeAreaView>

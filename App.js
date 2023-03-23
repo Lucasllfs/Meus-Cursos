@@ -5,6 +5,8 @@ import ViewAllCourses from './src/pages/ViewAllCourses/ViewAllCourses';
 import Home from './src/pages/Home'
 import Add from './src/pages/Add'
 
+import ViewCourse from './src/pages/ViewCourse'
+
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component {
@@ -54,6 +56,19 @@ export default class App extends Component {
               }
             }}
           /> 
+
+          <Stack.Screen name="ViewCourse" component={ViewCourse}
+            options={{
+              title: 'Add',
+              headerStyle: {
+                backgroundColor: '#181818',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              }
+            }}
+          />
 
         </Stack.Navigator>
       </NavigationContainer>

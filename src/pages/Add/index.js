@@ -6,7 +6,7 @@ import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-export default function Add() {
+export default function Add({ navigation }) {
 
     const [nome, setNome] = useState('');
     const [professor, setProfessor] = useState('')
@@ -75,7 +75,7 @@ export default function Add() {
 
       <StatusBar style='light'/>
 
-      <View style={styles.AddCard}>
+      <View style={styles.inputsCard}>
 
         <TextInput style={styles.Input}
           onChangeText={(texto) => setNome(texto)}
@@ -110,8 +110,8 @@ export default function Add() {
 
       </View>
         
-      <TouchableOpacity onPress={() => adicionar()} style={styles.button}>
-        <Text style ={{ color: '#FFF', fontWeight: '900', fontSize: 18}}> Adicionar </Text>
+      <TouchableOpacity onPress={() => adicionar()} style={styles.shortBtn}>
+        <Text style ={{ color: '#FFF', fontWeight: '900', fontSize: 18}} > Adicionar </Text>
       </TouchableOpacity>
 
     </View>
@@ -123,7 +123,7 @@ export default function Add() {
 
 const styles = StyleSheet.create({
 
-    AddCard: {
+    container: {
       flex: 1,
       backgroundColor: '#181818',
       alignItems: 'center',
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
       marginVertical: 20,
       fontSize:20,  
     },
-    button:{
+    shortBtn:{
       flexDirection: 'row',
       backgroundColor: '#8758FF',
       borderRadius: 25,
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
       marginTop: 28,
       justifyContent: 'center',
       alignItems: 'center',
-    }
-
+    },
+  
+  
   });
