@@ -12,7 +12,7 @@ export default function ViewCourse( { route, navigation } ) {
     const [courseId, setCourseId] = useState(itemId.course_id)
     const [disable, setDisable] = useState('false')
 
-    let enableUser = () => {
+    let enableCourse = () => {
   
       db.transaction((tx) => {
         console.log('entrou e courseid:', courseId)
@@ -34,6 +34,33 @@ export default function ViewCourse( { route, navigation } ) {
                 { cancelable: false }
               );
             } else alert('Erro ao atualizar o usuário');
+          }
+        );
+      });
+    };
+
+    let deleteCourse = () => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          'DELETE FROM  table_course where course_id=?',
+          [courseId],
+          (tx, results) => {
+            console.log('Results', results.rowsAffected);
+            if (results.rowsAffected > 0) {
+              alert(
+                'Sucesso',
+                'Usuário Excluído com Sucesso !',
+                [
+                  {
+                    text: 'Ok',
+                    onPress: () => navigation.navigate('HomeScreen'),
+                  },
+                ],
+                { cancelable: false }
+              );
+            } else {
+              alert('Por favor entre com um código de usuário válido !');
+            }
           }
         );
       });
@@ -72,8 +99,12 @@ export default function ViewCourse( { route, navigation } ) {
           <Text>Editar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.editButton} onPress ={() => enableUser()}>
+        <TouchableOpacity style={styles.editButton} onPress ={() => enableCourse()}>
           <Text>Desativar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.editButton} onPress ={() => deleteCourse()}>
+          <Text>Excluir</Text>
         </TouchableOpacity>
     
     </View>

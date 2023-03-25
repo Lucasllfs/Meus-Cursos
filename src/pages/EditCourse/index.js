@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image, ScrollView} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { DatabaseConnection } from '../database/database-connection';
 
@@ -90,7 +90,7 @@ export default function EditCourse({ route, navigation }) {
     return (
     
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    
+          <ScrollView>
         <View style={styles.container}>
     
           <Text>
@@ -141,6 +141,7 @@ export default function EditCourse({ route, navigation }) {
           </TouchableOpacity>
     
         </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
       );
     
