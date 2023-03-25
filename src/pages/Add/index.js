@@ -3,6 +3,7 @@ import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { MaterialIcons } from '@expo/vector-icons';
 import { DatabaseConnection } from '../database/database-connection';
 
 
@@ -65,22 +66,18 @@ export default function Add({ navigation }) {
             (tx, results) => {
               console.log('Results', results.rowsAffected);
               if (results.rowsAffected > 0) {
-                alert(
-                  'Sucesso',
-                  'Usuário Registrado com Sucesso !!!',
-                  [
-                    {
-                      text: 'Ok',
-                      onPress: () => navigation.navigate('Home'),
-                    },
-                  ],
-                  { cancelable: false }
-                );
+                console.log('curso adicionado')
+                GoToNext();
               } else alert('Erro ao tentar Registrar o Usuário !!!');
             }
           );
         });
       };
+
+
+      const GoToNext = () => {
+        navigation.navigate('Next')
+      }
 
  return (
     
@@ -88,11 +85,9 @@ export default function Add({ navigation }) {
 
     <View style={styles.container}>
 
-      <Text>
-        Cadastrar Curso
+      <Text style={styles.headerText}>
+        Novo Curso
       </Text>
-
-      <StatusBar style='light'/>
 
       <View style={styles.inputsCard}>
 
@@ -120,8 +115,10 @@ export default function Add({ navigation }) {
           placeholder="Descricao"
         />
 
-      <TouchableOpacity onPress={() => pickImage()}>
-        <Text>Selecionar Imagem</Text>
+      <TouchableOpacity 
+      style={styles.addImage}
+      onPress={() => pickImage()}>
+        <MaterialIcons name="add-photo-alternate" size={34} color="#9E9E9E" />
       </TouchableOpacity>
 
 
@@ -143,11 +140,17 @@ const styles = StyleSheet.create({
 
     container: {
       flex: 1,
-      backgroundColor: '#181818',
       alignItems: 'center',
       justifyContent: 'center',
     },
-  
+    headerText:{
+      fontSize: 34,
+      fontWeight: 800,
+      alignSelf: 'flex-start',
+      paddingHorizontal: 30,
+      paddingVertical: 10
+
+    },  
     inputsCard:{
       width: '90%',
       paddingVertical:5,
@@ -157,19 +160,29 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       zIndex: 5
     },  
-
     Input:{
       height: 55,
       width: '90%',
       borderRadius: 10,
       padding: 10,
       backgroundColor: "#F2F2F2",
-      marginVertical: 20,
+      marginVertical: '5%',
       fontSize:20,  
+    },
+    addImage:{
+      backgroundColor: '#F2F2F2',
+      height: 55,
+      width: '90%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 28,
+      marginTop: 20,
+      marginBottom: 20
+
     },
     shortBtn:{
       flexDirection: 'row',
-      backgroundColor: '#8758FF',
+      backgroundColor: '#FC2947',
       borderRadius: 25,
       height: 50,
       width: '40%',

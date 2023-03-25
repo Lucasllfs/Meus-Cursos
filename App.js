@@ -33,15 +33,9 @@ export default class App extends Component {
           />
 
            <Stack.Screen name="Add" component={Add}
+           
             options={{
-              title: 'Add',
-              headerStyle: {
-                backgroundColor: '#181818',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              }
+              headerShown: false,
             }}
           /> 
 
@@ -72,15 +66,8 @@ export default class App extends Component {
           />
 
           <Stack.Screen name="EditCourse" component={EditCourse}
-            options={{
-              title: 'EditCourse',
-              headerStyle: {
-                backgroundColor: '#181818',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              }
+             options={{
+              headerShown: false,
             }}
           />
 

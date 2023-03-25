@@ -97,7 +97,7 @@ const ViewAllCourses = ({ navigation }) => {
 
 
       
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: '#EEEEEE' }}>
         <View style={{ flex: 1 }}>
           <FlatList
             contentContainerStyle={{ paddingHorizontal: 20 }}
@@ -128,13 +128,17 @@ const ViewAllCourses = ({ navigation }) => {
 const styles = StyleSheet.create({
   container:{
     flex: 1,
+    backgroundColor: '#EEEEEE'
   },
-  header:{
+  header:{   
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
     backgroundColor: 'white',
     alignItems: 'center',
+    borderRadius: 100,
+    marginHorizontal: 10,
+    marginTop: 10
   },
   input:{
     backgroundColor: '#ECECEC',
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
     borderRadius: 28
   }, 
   searchButton:{
-    backgroundColor: '#2DCDDF',
+    backgroundColor: '#616161',
     height: 45,
     width: 45,
     borderRadius: 28,
@@ -171,7 +175,7 @@ const styles = StyleSheet.create({
   add:{
     width: 80,
     height: 80,
-    backgroundColor: '#6C00FF',
+    backgroundColor: '#FC2947',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center', 

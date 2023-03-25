@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     flex:1
   },
   Card:{
-    backgroundColor: '#EEEEEE',
+    backgroundColor: 'white',
     height: 275,
     width: '100%',
     marginVertical: 16,

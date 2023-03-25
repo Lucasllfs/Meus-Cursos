@@ -3,6 +3,7 @@ import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image, ScrollView} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
@@ -90,46 +91,51 @@ export default function EditCourse({ route, navigation }) {
     return (
     
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <ScrollView>
+         
         <View style={styles.container}>
     
-          <Text>
+          <Text style={styles.headerText}>
             Editar Curso
           </Text>
     
-          <StatusBar style='light'/>
-    
           <View style={styles.inputsCard}>
-    
+
+            <Text style={styles.inputText}>Nome</Text>
             <TextInput style={styles.Input}
               onChangeText={(texto) => setNome(texto)}
               value={nome}
               placeholder="Nome"
             />
-    
+
+            <Text style={styles.inputText}>Professor responsável</Text>
             <TextInput style={styles.Input}
               onChangeText={(texto) => setProfessor(texto)}
               value={professor}
-              placeholder="Professor resposavel"
+              placeholder="Professor resposável"
             />
-    
+
+            <Text style={styles.inputText}>Categoria</Text>
             <TextInput style={styles.Input}
               onChangeText={(texto) => setCategoria(texto)}
               value={categoria}
               placeholder="Categoria"
             />
     
+    <Text style={styles.inputText}>Descrição</Text>
+
             <TextInput style={styles.Input}
               onChangeText={(texto) => setDescricao(texto)}
               value={descricao}
-              placeholder="Descricao"
+              placeholder="Descrição"
             />
 
-        <Image source={{ uri: imagem}} style={{ width: 350, height: 175 }} />
+        <Image source={{ uri: imagem}} style={styles.image} />
 
 
-          <TouchableOpacity onPress={() => pickImage()}>
-            <Text>Trocar Imagem</Text>
+          <TouchableOpacity 
+          style={styles.changeImageButtom}
+          onPress={() => pickImage()}>
+            <MaterialCommunityIcons name="image-edit" size={30} color="#9E9E9E" />
           </TouchableOpacity>
 
            
@@ -141,7 +147,7 @@ export default function EditCourse({ route, navigation }) {
           </TouchableOpacity>
     
         </View>
-        </ScrollView>
+        
       </TouchableWithoutFeedback>
       );
     
@@ -152,39 +158,69 @@ export default function EditCourse({ route, navigation }) {
     
         container: {
           flex: 1,
-          backgroundColor: '#181818',
           alignItems: 'center',
           justifyContent: 'center',
         },
-      
+        headerText:{
+          fontSize: 34,
+          fontWeight: 800,
+          alignSelf: 'flex-start',
+          paddingHorizontal: 30,
+          paddingTop: '10%',
+          paddingBottom: 10
+        },
+
         inputsCard:{
           width: '90%',
+          height: '72%',
           paddingVertical:5,
           alignItems: 'center',
           justifyContent:'center',
           backgroundColor: '#FFF',
           borderRadius: 20,
-          zIndex: 5
+          
         },  
-    
+        inputText:{
+          alignSelf: 'flex-start',
+          paddingHorizontal: 20,
+          paddingVertical: 8,
+          color: '#9E9E9E'
+        },
         Input:{
-          height: 55,
+          height: '8%',
           width: '90%',
           borderRadius: 10,
           padding: 10,
           backgroundColor: "#F2F2F2",
-          marginVertical: 20,
+          marginBottom: '3%',
           fontSize:20,  
+        },
+        image:{
+          width: '90%', 
+          height: '20%',
+          borderRadius: 10,
+          
+        },
+        changeImageButtom:{
+          backgroundColor: '#F2F2F2',
+          height: '7%',
+          width: '90%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: 28,
+          marginTop: '2%',
+          marginBottom: '3%'
         },
         shortBtn:{
           flexDirection: 'row',
-          backgroundColor: '#8758FF',
-          borderRadius: 25,
-          height: 50,
+          backgroundColor: '#FC2947',
+          borderRadius: 50,
+          height: '6%',
           width: '40%',
-          marginTop: 28,
+          marginTop: 20,
           justifyContent: 'center',
           alignItems: 'center',
+          marginBottom: '5%'
         },
       
       
