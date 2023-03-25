@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
-
+import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { Octicons, Ionicons } from '@expo/vector-icons';
 import Courses from '../../../components/Courses';
 import { DatabaseConnection } from '../database/database-connection';
 
@@ -59,7 +59,8 @@ const ViewAllCourses = ({ navigation }) => {
       <TouchableOpacity
       key={item.course_id}
       onPress={() => goToViewCourse(item)}
-      style={{ backgroundColor: 'red', marginTop: 20, padding: 30, borderRadius: 10 }}>
+     
+      >
       <Courses item = {item}/>
       </TouchableOpacity>
     );
@@ -78,23 +79,27 @@ const ViewAllCourses = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+     
+      <View style={styles.header}>
+
         <TextInput
-          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          style={styles.input}
           onChangeText={(text) => setInputCourseName(text)}
-          placeholder="Digite aqui para pesquisar"
+          placeholder="Digite o nome do curso"
         />
+
         <TouchableOpacity
-        onPress={() => searchUser()}
-        >
-          <Text>Buscar</Text>
+        style={styles.searchButton}
+        onPress={() => searchUser()}>
+          <Octicons name="search" size={24} color="white" />
         </TouchableOpacity>
       </View>
 
+
+      
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
           <FlatList
-            style={{ marginTop: 30 }}
             contentContainerStyle={{ paddingHorizontal: 20 }}
             data={flatListItems}
             keyExtractor={(item, index) => index.toString()}
@@ -102,15 +107,20 @@ const ViewAllCourses = ({ navigation }) => {
           />
         </View>
       </View>
+        
+      
 
+      <View style={styles.addButtom}>
       <TouchableOpacity onPress={() => GoToAdd()}>
 
         <View style = {styles.add}>
-        <Text style = { styles.addText}>+</Text>
+        <Ionicons name="add-sharp" size={34} color="white" />
         </View>
 
       </TouchableOpacity>
-
+      </View>
+    
+    
     </SafeAreaView>
   );
 };
@@ -119,19 +129,58 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
   },
+  header:{
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 10,
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  input:{
+    backgroundColor: '#ECECEC',
+    height: 45,
+    width: '85%',
+    padding: 16,
+    borderRadius: 28
+  }, 
+  searchButton:{
+    backgroundColor: '#2DCDDF',
+    height: 45,
+    width: 45,
+    borderRadius: 28,
+    alignItems:'center',
+    justifyContent: 'center'
+  },
+
+  listView:{
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    backgroundColor: 'blue'
+  },  
+
+  addButtom:{
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    bottom: 0,
+    padding: 12,
+  
+  },  
+
   add:{
-    width: 60,
-    height: 60,
-    backgroundColor: '#181818',
+    width: 80,
+    height: 80,
+    backgroundColor: '#6C00FF',
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center', 
-    margin: 10,
+  
   },
-
   addText:{
     fontSize: 30,
     color:"#F9F9F9",
+    
   }
 });
 

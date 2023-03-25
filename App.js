@@ -47,11 +47,11 @@ export default class App extends Component {
 
           <Stack.Screen name="Next" component={ViewAllCourses}
             options={{
-              title: 'next',
+              title: 'Cursos',
               headerStyle: {
-                backgroundColor: '#181818',
+                backgroundColor: '#fff',
               },
-              headerTintColor: '#fff',
+              headerTintColor: '#181818',
               headerTitleStyle: {
                 fontWeight: 'bold',
               }
