@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ViewAllCourses from './src/pages/ViewAllCourses/ViewAllCourses';
 import Home from './src/pages/Home'
 import Add from './src/pages/Add'
+import EditCourse from './src/pages/EditCourse'
 
 import ViewCourse from './src/pages/ViewCourse'
 
@@ -59,7 +60,20 @@ export default class App extends Component {
 
           <Stack.Screen name="ViewCourse" component={ViewCourse}
             options={{
-              title: 'Add',
+              title: 'ViewCourse',
+              headerStyle: {
+                backgroundColor: '#181818',
+              },
+              headerTintColor: '#fff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              }
+            }}
+          />
+
+          <Stack.Screen name="EditCourse" component={EditCourse}
+            options={{
+              title: 'EditCourse',
               headerStyle: {
                 backgroundColor: '#181818',
               },

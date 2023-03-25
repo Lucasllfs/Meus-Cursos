@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
 import Courses from '../../../components/Courses';
 import { DatabaseConnection } from '../database/database-connection';
@@ -8,6 +8,8 @@ const db = DatabaseConnection.getConnection();
 
 const ViewAllCourses = ({ navigation }) => {
   let [flatListItems, setFlatListItems] = useState([]);
+
+  const [inputCourseName, setInputCourseName] = useState('');
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -25,6 +27,28 @@ const ViewAllCourses = ({ navigation }) => {
   }, []);
 
 
+  let searchUser = () => {
+    console.log(inputCourseName);
+    db.transaction((tx) => {
+      tx.executeSql(
+        'SELECT * FROM table_course where course_name = ?',
+        [inputCourseName],
+        (tx, results) => {
+          var len = results.rows.length;
+          console.log('LEN:',len)
+          if (len > 0) {
+            let res = results.rows.item(0);
+            console.log('RES:',res)
+            goToViewCourse(res)
+            console.log('rescouseid:', res)
+          } else {
+            alert('Usuário não encontrado!');
+            
+          }
+        }
+      );
+    });
+  };
 
 
 
@@ -54,6 +78,19 @@ const ViewAllCourses = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View>
+        <TextInput
+          style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          onChangeText={(text) => setInputCourseName(text)}
+          placeholder="Digite aqui para pesquisar"
+        />
+        <TouchableOpacity
+        onPress={() => searchUser()}
+        >
+          <Text>Buscar</Text>
+        </TouchableOpacity>
+      </View>
+
       <View style={{ flex: 1, backgroundColor: 'white' }}>
         <View style={{ flex: 1 }}>
           <FlatList

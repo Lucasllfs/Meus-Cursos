@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback} from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image} from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { DatabaseConnection } from '../database/database-connection';
+
 
 const db = DatabaseConnection.getConnection();
 
@@ -12,7 +14,24 @@ export default function Add({ navigation }) {
     const [professor, setProfessor] = useState('')
     const [categoria, setCategoria] = useState('')
     const [descricao, setDescricao] = useState('')
-    const [imagem, setImagem] = useState('')
+    const [imagem, setImagem] = useState(null)
+
+    const pickImage = async () => {
+      console.log("pickimage")
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 2],
+        quality: 1,
+      });
+    
+      
+        setImagem(result.assets[0].uri);
+        console.log('IMG:', imagem)
+      
+    };
+
+
 
     let adicionar = () => {
         console.log(nome, professor, categoria, descricao, imagem);
@@ -101,11 +120,10 @@ export default function Add({ navigation }) {
           placeholder="Descricao"
         />
 
-        <TextInput style={styles.Input}
-          onChangeText={(texto) => setImagem(texto)}
-          value={imagem}
-          placeholder="Imagem"
-        />
+      <TouchableOpacity onPress={() => pickImage()}>
+        <Text>Selecionar Imagem</Text>
+      </TouchableOpacity>
+
 
 
       </View>

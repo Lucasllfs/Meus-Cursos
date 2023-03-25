@@ -1,16 +1,16 @@
 import React from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, Text, StyleSheet, Image} from 'react-native'
 
 
 
 
 const Courses =(props) => {
 
-    
+    console.log('URI:', props.item.course_image)
     return(
-
+      
         <View>
-
+        
             <View>
             <Text style={styles.textheader}>Código</Text>
             <Text style={styles.textbottom}>{props.item.course_id}</Text>
@@ -27,9 +27,12 @@ const Courses =(props) => {
             <Text style={styles.textheader}>descricao</Text>
             <Text style={styles.textbottom}>{props.item.course_description}</Text>
     
-            <Text style={styles.textheader}>imagem</Text>
-            <Text style={styles.textbottom}>{props.item.course_image}</Text>
+            
+            <Image source={{ uri: props.item.course_image}} style={{ width: 350, height: 175 }} />
             </View>
+
+            
+            
 
         </View>
         

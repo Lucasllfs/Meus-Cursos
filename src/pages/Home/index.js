@@ -17,7 +17,7 @@ const Home = ({ navigation }) =>{
           if (res.rows.length == 0) {
             txn.executeSql('DROP TABLE IF EXISTS table_course', []);
             txn.executeSql(
-              'CREATE TABLE IF NOT EXISTS table_course(course_id INTEGER PRIMARY KEY AUTOINCREMENT, course_name VARCHAR(50), course_teacher VARCHAR(20), course_category VARCHAR(15), course_description VARCHAR(250), course_image VARCHAR(100))',
+              'CREATE TABLE IF NOT EXISTS table_course(course_id INTEGER PRIMARY KEY AUTOINCREMENT, course_name VARCHAR(50), course_teacher VARCHAR(20), course_category VARCHAR(15), course_description VARCHAR(250), course_image VARCHAR(100), course_enable VARCHAR(6) DEFAULT "true")',
               []
             );
           }
