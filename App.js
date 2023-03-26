@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ViewAllCourses from './src/pages/ViewAllCourses/ViewAllCourses';
+
+import ViewAllCourses from './src/pages/Home/ViewAllCourses';
 import Home from './src/pages/Home'
 import Add from './src/pages/Add'
+import LoginScreen from './src/pages/LoginScreen'
 import EditCourse from './src/pages/EditCourse'
+import Details from './src/pages/details';
 
-import ViewCourse from './src/pages/ViewCourse'
 
 const Stack = createNativeStackNavigator();
 
@@ -16,45 +18,29 @@ export default class App extends Component {
 
     return (
       <NavigationContainer>
-        <Stack.Navigator  initialRouteName="Home">
+        <Stack.Navigator  initialRouteName="LoginScreen">
 
-          <Stack.Screen name="Home" component={Home}
+          <Stack.Screen name="LoginScreen" component={LoginScreen}
             options={{
-              title: 'Home',
-              headerStyle: {
-                backgroundColor: '#181818',
-              },
-              headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: '900',
-                fontSize: 30
-              }
+              headerShown: false,
             }}
           />
 
-           <Stack.Screen name="Add" component={Add}
-           
+          <Stack.Screen name="Home" component={Home}
             options={{
               headerShown: false,
             }}
           /> 
 
-          <Stack.Screen name="Next" component={ViewAllCourses}
+          <Stack.Screen name="Add" component={Add}
             options={{
-              title: 'Cursos',
-              headerStyle: {
-                backgroundColor: '#fff',
-              },
-              headerTintColor: '#181818',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              }
+              headerShown: false,
             }}
           /> 
 
-          <Stack.Screen name="ViewCourse" component={ViewCourse}
+          <Stack.Screen name="Details" component={Details}
             options={{
-              title: 'ViewCourse',
+              title: 'Detalhes',
               headerStyle: {
                 backgroundColor: '#181818',
               },

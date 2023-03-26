@@ -67,7 +67,7 @@ export default function Add({ navigation }) {
               console.log('Results', results.rowsAffected);
               if (results.rowsAffected > 0) {
                 console.log('curso adicionado')
-                GoToNext();
+                GoToHome();
               } else alert('Erro ao tentar Registrar o Usuário !!!');
             }
           );
@@ -75,8 +75,8 @@ export default function Add({ navigation }) {
       };
 
 
-      const GoToNext = () => {
-        navigation.navigate('Next')
+      const GoToHome = () => {
+        navigation.navigate('Home')
       }
 
  return (

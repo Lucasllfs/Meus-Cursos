@@ -5,7 +5,7 @@ import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-export default function ViewCourse( { route, navigation } ) {
+export default function Details( { route, navigation } ) {
 
     const { itemId } = route.params;
     console.log('ITEMID:', itemId)

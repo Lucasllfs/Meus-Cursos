@@ -6,10 +6,30 @@ import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
-const ViewAllCourses = ({ navigation }) => {
-  let [flatListItems, setFlatListItems] = useState([]);
+const Home = ({ navigation }) => {
 
+  let [flatListItems, setFlatListItems] = useState([]);
   const [inputCourseName, setInputCourseName] = useState('');
+
+  useEffect(() => {
+    db.transaction(function (txn) {
+      txn.executeSql(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='table_course'",
+        [],
+        function (tx, res) {
+          console.log('item:', res.rows.length);
+          if (res.rows.length == 0) {
+            txn.executeSql('DROP TABLE IF EXISTS table_course', []);
+            txn.executeSql(
+              'CREATE TABLE IF NOT EXISTS table_course(course_id INTEGER PRIMARY KEY AUTOINCREMENT, course_name VARCHAR(50), course_teacher VARCHAR(20), course_category VARCHAR(15), course_description VARCHAR(250), course_image VARCHAR(100), course_enable VARCHAR(6) DEFAULT "true")',
+              []
+            );
+          }
+        }
+      );
+    });
+  }, []);
+
 
   useEffect(() => {
     db.transaction((tx) => {
@@ -39,7 +59,7 @@ const ViewAllCourses = ({ navigation }) => {
           if (len > 0) {
             let res = results.rows.item(0);
             console.log('RES:',res)
-            goToViewCourse(res)
+            goToDetails(res)
             console.log('rescouseid:', res)
           } else {
             alert('Usuário não encontrado!');
@@ -70,8 +90,8 @@ const ViewAllCourses = ({ navigation }) => {
     navigation.navigate('Add')
   }
 
-  const goToViewCourse = (itemId) => {
-    navigation.navigate('ViewCourse', {
+  const goToDetails = (itemId) => {
+    navigation.navigate('Details', {
       itemId: itemId,
       otherParam: '',
     })
@@ -188,4 +208,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ViewAllCourses;
+export default Home;
