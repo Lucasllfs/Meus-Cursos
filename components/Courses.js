@@ -1,14 +1,13 @@
 import React from "react";
 import {View, Text, StyleSheet, Image} from 'react-native'
 
-
 const Courses =(props) => {
 
   return(
     
     <View style={styles.container}>
       <View style={styles.Card}>
-        <Image source={{ uri: props.item.course_image}} style={styles.image} />
+        <Image source={{ uri: props.item.course_image}} style={styles.image}/>
   
         <Text numberOfLines={1} style={styles.textName}>{props.item.course_name}</Text>
 
@@ -32,9 +31,14 @@ const styles = StyleSheet.create({
     marginVertical: 16,
     alignSelf: 'center',
     borderRadius: 30,
-
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 4,
+    },
+    shadowOpacity: 0.02,
+    shadowRadius: 6.46,
   },
-
   image:{
     alignSelf: 'center',
     width: '100%', 

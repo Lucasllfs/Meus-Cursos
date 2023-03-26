@@ -8,7 +8,6 @@ import LoginScreen from './src/pages/LoginScreen';
 import EditCourse from './src/pages/EditCourse';
 import Details from './src/pages/Details/index';
 
-
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component {
@@ -17,7 +16,8 @@ export default class App extends Component {
 
     return (
       <NavigationContainer>
-        <Stack.Navigator  initialRouteName="Home">
+        
+        <Stack.Navigator  initialRouteName="LoginScreen">
 
           <Stack.Screen name="LoginScreen" component={LoginScreen}
             options={{
@@ -46,9 +46,6 @@ export default class App extends Component {
                 backgroundColor: '#212121',
               },
               headerTintColor: '#fff',
-              headerTitleStyle: {
-                fontWeight: 'bold',
-              }
             }}
           />
 
@@ -59,6 +56,7 @@ export default class App extends Component {
           />
 
         </Stack.Navigator>
+        
       </NavigationContainer>
       
     )
