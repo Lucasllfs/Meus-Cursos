@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard,TouchableWithoutFeedback, Image, ScrollView} from 'react-native';
@@ -35,7 +35,7 @@ export default function EditCourse({ route, navigation }) {
     };
 
 
-
+  
       let updateUser = () => {
         console.log('ID:', inputCourseId);
 
@@ -77,15 +77,12 @@ export default function EditCourse({ route, navigation }) {
           );
         });
 
-        goToViewCourse(itemId);
+        goToHome(itemId);
       };
 
 
-      const goToViewCourse = (itemId) => {
-        navigation.navigate('ViewCourse', {
-            itemId: itemId,
-            otherParam: '',
-          })
+      const goToHome = () => {
+        navigation.navigate('Home')
       }
 
     return (
@@ -93,7 +90,7 @@ export default function EditCourse({ route, navigation }) {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          
         <View style={styles.container}>
-    
+        <Image source={{ uri: imagem}} style={styles.image} />
           <Text style={styles.headerText}>
             Editar Curso
           </Text>

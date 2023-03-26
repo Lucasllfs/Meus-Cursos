@@ -2,43 +2,43 @@ import React from "react";
 import {View, Text, StyleSheet, Image} from 'react-native'
 
 
-
-
 const Courses =(props) => {
 
-    console.log('URI:', props.item.course_image)
-    return(
-      
-      <View style={styles.container}>
-        <View style={styles.Card}>
-        <Image source={{ uri: props.item.course_image}} style={styles.image} />
+  return(
     
-        <Text style={styles.textName}>{props.item.course_name}</Text>
+    <View style={styles.container}>
+      <View style={styles.Card}>
+        <Image source={{ uri: props.item.course_image}} style={styles.image} />
+  
+        <Text numberOfLines={1} style={styles.textName}>{props.item.course_name}</Text>
 
-        <Text style={styles.textTeacher}>{props.item.course_teacher}</Text> 
-        </View>           
-      </View>
-        
-    )
+        <Text numberOfLines={1} style={styles.textTeacher}>{props.item.course_teacher}</Text> 
+      </View>           
+    </View>
+      
+  )
 
 }
 
 const styles = StyleSheet.create({
+  
   container:{
     flex:1
   },
   Card:{
     backgroundColor: 'white',
-    height: 275,
+    height: 245,
     width: '100%',
     marginVertical: 16,
     alignSelf: 'center',
-    borderRadius: 30
+    borderRadius: 30,
+
   },
+
   image:{
     alignSelf: 'center',
     width: '100%', 
-    height: 175,
+    height: 150,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
   },

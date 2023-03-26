@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import ViewAllCourses from './src/pages/Home/ViewAllCourses';
-import Home from './src/pages/Home'
-import Add from './src/pages/Add'
-import LoginScreen from './src/pages/LoginScreen'
-import EditCourse from './src/pages/EditCourse'
-import Details from './src/pages/details';
+import Home from './src/pages/Home';
+import Add from './src/pages/Add';
+import LoginScreen from './src/pages/LoginScreen';
+import EditCourse from './src/pages/EditCourse';
+import Details from './src/pages/Details/index';
 
 
 const Stack = createNativeStackNavigator();
@@ -18,7 +17,7 @@ export default class App extends Component {
 
     return (
       <NavigationContainer>
-        <Stack.Navigator  initialRouteName="LoginScreen">
+        <Stack.Navigator  initialRouteName="Home">
 
           <Stack.Screen name="LoginScreen" component={LoginScreen}
             options={{
@@ -26,9 +25,10 @@ export default class App extends Component {
             }}
           />
 
-          <Stack.Screen name="Home" component={Home}
+          <Stack.Screen name="Home" component={Home} 
             options={{
               headerShown: false,
+              unmountOnBlur: true
             }}
           /> 
 
@@ -40,9 +40,10 @@ export default class App extends Component {
 
           <Stack.Screen name="Details" component={Details}
             options={{
-              title: 'Detalhes',
+              unmountOnBlur: true,
+              title: '',
               headerStyle: {
-                backgroundColor: '#181818',
+                backgroundColor: '#212121',
               },
               headerTintColor: '#fff',
               headerTitleStyle: {

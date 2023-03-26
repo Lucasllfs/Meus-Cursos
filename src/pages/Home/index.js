@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { FlatList,Text, View, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, ScrollView, StatusBar } from 'react-native';
 import { Octicons, Ionicons } from '@expo/vector-icons';
+import { useIsFocused } from '@react-navigation/native';
 import Courses from '../../../components/Courses';
 import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
 const Home = ({ navigation }) => {
-
+  const isFocused = useIsFocused();
   let [flatListItems, setFlatListItems] = useState([]);
   const [inputCourseName, setInputCourseName] = useState('');
 
@@ -28,7 +29,7 @@ const Home = ({ navigation }) => {
         }
       );
     });
-  }, []);
+  });
 
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const Home = ({ navigation }) => {
         }
       );
     });
-  }, []);
+  }, [isFocused]);
 
 
   let searchUser = () => {
@@ -76,9 +77,11 @@ const Home = ({ navigation }) => {
     console.log('entrou');
 
     return (
+     
+
       <TouchableOpacity
       key={item.course_id}
-      onPress={() => goToViewCourse(item)}
+      onPress={() => goToDetails(item)}
      
       >
       <Courses item = {item}/>
@@ -99,7 +102,7 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-     
+     <StatusBar barStyle="dark-content" />
       <View style={styles.header}>
 
         <TextInput
@@ -153,24 +156,24 @@ const styles = StyleSheet.create({
   header:{   
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 5,
     backgroundColor: 'white',
     alignItems: 'center',
-    borderRadius: 100,
+    borderRadius: 10,
     marginHorizontal: 10,
     marginTop: 10
   },
   input:{
-    backgroundColor: '#ECECEC',
+    backgroundColor: '#FFF',
     height: 45,
     width: '85%',
     padding: 16,
-    borderRadius: 28
+    borderRadius: 28,
   }, 
   searchButton:{
-    backgroundColor: '#616161',
-    height: 45,
-    width: 45,
+    backgroundColor: '#9E9E9E',
+    height: 40,
+    width: 40,
     borderRadius: 28,
     alignItems:'center',
     justifyContent: 'center'
@@ -193,8 +196,8 @@ const styles = StyleSheet.create({
   },  
 
   add:{
-    width: 80,
-    height: 80,
+    width: 65,
+    height: 65,
     backgroundColor: '#FC2947',
     borderRadius: 60,
     justifyContent: 'center',

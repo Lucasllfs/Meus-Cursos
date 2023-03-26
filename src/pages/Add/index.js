@@ -18,7 +18,7 @@ export default function Add({ navigation }) {
     const [imagem, setImagem] = useState(null)
 
     const pickImage = async () => {
-      console.log("pickimage")
+      console.log('image: ',imagem)
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -84,7 +84,7 @@ export default function Add({ navigation }) {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
     <View style={styles.container}>
-
+  
       <Text style={styles.headerText}>
         Novo Curso
       </Text>
@@ -118,7 +118,7 @@ export default function Add({ navigation }) {
       <TouchableOpacity 
       style={styles.addImage}
       onPress={() => pickImage()}>
-        <MaterialIcons name="add-photo-alternate" size={34} color="#9E9E9E" />
+        <MaterialIcons name="add-photo-alternate" size={34} {... {color: imagem == null? '#9E9E9E' : '#212121' }} />
       </TouchableOpacity>
 
 

@@ -1,52 +1,34 @@
 import React, { useState, useEffect} from 'react';
-import { View, Text, SafeAreaView, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, Image,StatusBar, TouchableOpacity, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useIsFocused } from '@react-navigation/native';
 import { DatabaseConnection } from '../database/database-connection';
 
 const db = DatabaseConnection.getConnection();
 
 export default function Details( { route, navigation } ) {
-
+  const isFocused = useIsFocused();
     const { itemId } = route.params;
     console.log('ITEMID:', itemId)
 
     const [courseId, setCourseId] = useState(itemId.course_id)
-    const [disable, setDisable] = useState('true')
+    const [disable, setDisable] = useState(itemId.course_enable)
     const [enableText, setEnableText] = useState('Ativado')
 
-
    
-    
-    
 
     let enableCourse = () => {
-
-      
-
+        enableText == 'Ativado'? setEnableText('Desativado') : setEnableText('Ativado')
+        disable == 'true'? setDisable('false') : setDisable('true')
       db.transaction((tx) => {
-        console.log('entrou e courseid:', courseId)
-        if(itemId.course_enable == 'true'){
-          setDisable('false')
-        }else{
-          setDisable('true')
-        }
+        console.log('entrandoenable: ', disable)
         tx.executeSql(
           'UPDATE table_course set course_enable=? where course_id=?',
           [disable, courseId],
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              alert(
-                'Sucesso',
-                'Usuário atualizado com sucesso !!',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('HomeScreen'),
-                  },
-                ],
-                { cancelable: false }
-              );
+              console.log('ENABLE',itemId.course_enable)
             } else alert('Erro ao atualizar o usuário');
           }
         );
@@ -55,8 +37,6 @@ export default function Details( { route, navigation } ) {
 
     let deleteCourse = () => {
       
-      
-
       db.transaction((tx) => {
         tx.executeSql(
           'DELETE FROM  table_course where course_id=?',
@@ -64,26 +44,20 @@ export default function Details( { route, navigation } ) {
           (tx, results) => {
             console.log('Results', results.rowsAffected);
             if (results.rowsAffected > 0) {
-              alert(
-                'Sucesso',
-                'Usuário Excluído com Sucesso !',
-                [
-                  {
-                    text: 'Ok',
-                    onPress: () => navigation.navigate('HomeScreen'),
-                  },
-                ],
-                { cancelable: false }
-              );
+              console.log('excluido')
             } else {
               alert('Por favor entre com um código de usuário válido !');
             }
           }
         );
+        GoToHome()
       });
     };
 
 
+    const GoToHome = () => {
+      navigation.navigate('Home')
+    }
   const GoToEdit = () => {
     navigation.navigate('EditCourse', {
       itemId: itemId
@@ -95,7 +69,8 @@ export default function Details( { route, navigation } ) {
  return (
     <SafeAreaView style={{ flex: 1 }}>
 
-
+    <StatusBar barStyle="light-content" />
+    
     <View style={{ flex: 1, backgroundColor: 'white' }}>
 
     <TouchableOpacity 
@@ -106,18 +81,19 @@ export default function Details( { route, navigation } ) {
 
           <Image source={{ uri: itemId.course_image}} style={styles.image} />
 
-          <View style={styles.text}>
-            <Text style={styles.title}>{itemId.course_name}</Text>
+          <View style={styles.text} >
+            <Text numberOfLines={1} style={styles.title}>{itemId.course_name}</Text>
 
             <View style={styles.teacherAndCategory}>
-              <Text style={styles.teacherName}>Prof. {itemId.course_teacher}</Text>
+              <Text numberOfLines={1} style={styles.teacherName}>{itemId.course_teacher.length > 20 ? `${itemId.course_teacher.slice(0, 20)}...` : itemId.course_teacher}</Text>
 
               <View style={styles.categoryBox}>
-                <Text style={styles.categoryText}>Categoria : {itemId.course_category}</Text>
+                <Text style={styles.categoryText}>Categoria :  {itemId.course_category.length > 10 ? `${itemId.course_category.slice(0, 10)}...` : itemId.course_category}</Text>
               </View>
             </View>
 
             <View style={styles.desciptionBox}>
+              
               <Text style={styles.desciptionText}>{itemId.course_description}</Text>
             </View>
           </View>
@@ -125,7 +101,7 @@ export default function Details( { route, navigation } ) {
         <View style={styles.bottomTools}>
 
           <TouchableOpacity style={styles.enableButton} onPress ={() => enableCourse()}>
-            <Text>{itemId.course_enable}</Text>
+            <Text style={styles.enableText}>{enableText}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.delete} onPress ={() => deleteCourse()}>
@@ -142,6 +118,7 @@ const styles = StyleSheet.create({
   page:{
     flex: 1,
   
+    
   },
   editIcon:{
     position: 'absolute',
@@ -169,7 +146,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    
   },
   teacherName:{
     fontSize: 20,
@@ -177,32 +155,30 @@ const styles = StyleSheet.create({
     color: '#616161'
   },
   categoryBox:{
-    backgroundColor: '#BDBDBD',
+    backgroundColor: '#212121',
     paddingVertical: 3,
     paddingHorizontal: 10,
     borderRadius: 16,
     height: 24,
-    width: '40%',
-   
+    
   },
   categoryText:{
     color: '#FFF'
   },
   desciptionBox:{
-    marginVertical: 20,
-    backgroundColor: '#E0E0E0',
+    marginVertical: 40,
+    backgroundColor: '#EEEEEE',
     padding: 12,
     borderRadius: 12
   },
   desciptionText:{
-    fontSize: 16
+    fontSize: 18,
   },
   bottomTools:{
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    
   },
   delete:{
     alignItems: 'flex-end',
@@ -223,4 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 25
   },
+  enableText:{
+    fontWeight: 700
+  }
 });
